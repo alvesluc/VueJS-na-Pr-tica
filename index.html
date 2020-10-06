@@ -37,7 +37,8 @@
                     </div>
 
                     <div class="form-group ml-1">
-                        <button class="btn btn-lg btn-rounded btn-success" v-on:click.prevent="saveContact(contact)">Criar
+                        <button class="btn btn-lg btn-rounded btn-success"
+                            v-on:click.prevent="saveContact(contact)">Criar
                             Contato</button>
                     </div>
                 </form>
@@ -47,13 +48,13 @@
 
                 <div class="contact">
 
-                    <div class="col-12 mb-2">
+                    <div class="col-12 mb-2" v-for="contact in contacts">
 
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Fulano de Tal</h5>
+                                <h5 class="card-title">{{contact.name}}</h5>
 
-                                <p class="card-text">fulano@email.com, 9888434343</p>
+                                <p class="card-text">{{contact.email}}, {{contact.phone}}</p>
 
                                 <a href="#" class="btn btn-sm btn-primary">EDITAR</a>
                                 <a href="#" class="btn btn-sm btn-danger">DELETAR</a>
@@ -71,15 +72,30 @@
             el: "#app",
             data: {
                 name: 'Contatos App',
+                contacts: [],
                 contact: {
                     name: '',
                     email: '',
                     phone: '',
                 }
             },
+            created() {
+                this.contacts = JSON.parse(localStorage.getItem('contactsApp'));
+            },
             methods: {
                 saveContact(contact) {
-                    console.log(contact);
+                    let contacts = localStorage.getItem('contactsApp');
+
+                    if (contacts) {
+                        contacts = JSON.parse(contacts);
+                        contacts.push(contact);
+                    } else {
+                        contacts = [contact];
+                    }
+
+                    this.contacts = contacts;
+                    
+                    localStorage.setItem('contactsApp', JSON.stringify(contacts));
                 }
             }
         });
