@@ -12,8 +12,8 @@
     <div class="container" id="app">
         <div class="row mt-5">
             <div class="col-12 border-bottom mb-5 d-flex justify-content-between align-items-center">
-                <h2>{{ name }}</h2>
-                <p>{{contactsCount}}</p>
+                <h2 :title="appName">{{appName}}</h2>
+                <p v-bind:title="counterDescription">{{contactsCount}}</p>
             </div>
 
             <div class="col-4">
@@ -80,7 +80,8 @@
         let app = new Vue({
             el: "#app",
             data: {
-                name: 'Contatos App',
+                appName: 'Contatos App',
+                counterDescription: 'Quantidade de contatos',
                 contacts: [],
                 contact: {
                     id: '',
@@ -138,7 +139,7 @@
                 },
                 updateContact(contact) {
                     let contacts = this.contacts.map(contactMap => {
-                        if(contactMap.id == contact.id) {
+                        if (contactMap.id == contact.id) {
                             return contact;
                         }
 
@@ -146,7 +147,7 @@
                     });
                     this.contacts = contacts;
                     this.isEdit = false;
-                    
+
                     localStorage.setItem('contactsApp', JSON.stringify(contacts));
 
                     location.reload();
