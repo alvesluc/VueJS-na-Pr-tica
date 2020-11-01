@@ -1,5 +1,5 @@
 Equipe:
 
-Lucas Alves 
-Jhonnathan Elvis
-Lael Albuquerque
+Lucas Alves, 
+Jhonnathan Elvis,
+Lael Albuquerque.
